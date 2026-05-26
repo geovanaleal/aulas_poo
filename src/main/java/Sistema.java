@@ -8,63 +8,115 @@ public class Sistema {
 
         SistemaFilme sistema = new SistemaFilme();
 
-        System.out.println("=== CADASTRO DE FILMES ===");
+        int opcao = -1;
 
-        // Quantidade de filmes
-        System.out.print("Quantos filmes deseja cadastrar? ");
-        int quantidade = Integer.parseInt(scanner.nextLine());
+        while (opcao != 0) {
 
-        // Cadastro
-        for (int i = 1; i <= quantidade; i++) {
+            System.out.println("\n=== SISTEMA DE FILMES ===");
+            System.out.println("1 - Cadastrar filme");
+            System.out.println("2 - Listar filmes");
+            System.out.println("3 - Pesquisar filme");
+            System.out.println("4 - Alterar nota");
+            System.out.println("5 - Remover filme");
+            System.out.println("0 - Sair");
 
-            System.out.println("\nFilme " + i);
+            System.out.print("Escolha uma opção: ");
+            opcao = Integer.parseInt(scanner.nextLine());
 
-            System.out.print("Título: ");
-            String titulo = scanner.nextLine();
+            switch (opcao) {
 
-            System.out.print("Gênero: ");
-            String genero = scanner.nextLine();
+                case 1:
 
-            System.out.print("Ano: ");
-            int ano = Integer.parseInt(scanner.nextLine());
+                    System.out.println("\n=== CADASTRO DE FILME ===");
 
-            System.out.print("Nota: ");
-            double nota = Double.parseDouble(scanner.nextLine());
+                    System.out.print("Título: ");
+                    String titulo = scanner.nextLine();
 
-            Filme filme = new Filme(titulo, genero, ano, nota);
+                    System.out.print("Gênero: ");
+                    String genero = scanner.nextLine();
 
-            sistema.cadastrarFilme(filme);
+                    System.out.print("Ano: ");
+                    int ano = Integer.parseInt(scanner.nextLine());
 
-            System.out.println("Filme cadastrado com sucesso!");
-        }
+                    System.out.print("Nota: ");
+                    double nota = Double.parseDouble(scanner.nextLine());
 
-        // Listar filmes
-        System.out.println("\n=== LISTA DE FILMES ===");
-        sistema.listarFilmes();
+                    Filme filme =
+                            new Filme(titulo, genero, ano, nota);
 
-        // Buscar filme
-        System.out.print("\nDigite o título do filme que deseja buscar: ");
-        String tituloBusca = scanner.nextLine();
+                    sistema.cadastrarFilme(filme);
 
-        Filme filmeEncontrado = sistema.pesquisarFilme(tituloBusca);
+                    System.out.println("Filme cadastrado!");
+                    break;
 
-        if (filmeEncontrado != null) {
+                case 2:
 
-            System.out.println("\nFilme encontrado:");
-            System.out.println(filmeEncontrado);
+                    System.out.println("\n=== LISTA DE FILMES ===");
 
-            // Alterar nota
-            System.out.print("\nDigite a nova nota: ");
-            double novaNota = Double.parseDouble(scanner.nextLine());
+                    for (Filme f : sistema.listarFilmes()) {
+                        System.out.println(f);
+                    }
 
-            sistema.alterarNota(novaNota, tituloBusca);
+                    break;
 
-            System.out.println("\nNota alterada com sucesso!");
-            System.out.println(sistema.pesquisarFilme(tituloBusca));
+                case 3:
 
-        } else {
+                    System.out.print("\nDigite o título: ");
 
-            System.out.println("Filme não encontrado.");
+                    String busca = scanner.nextLine();
+
+                    Filme encontrado =
+                            sistema.pesquisarFilme(busca);
+
+                    if (encontrado != null) {
+                        System.out.println(encontrado);
+                    } else {
+                        System.out.println("Filme não encontrado.");
+                    }
+
+                    break;
+
+                case 4:
+
+                    System.out.print("\nTítulo do filme: ");
+                    String tituloNota = scanner.nextLine();
+
+                    System.out.print("Nova nota: ");
+                    double novaNota =
+                            Double.parseDouble(scanner.nextLine());
+
+                    sistema.alterarNota(novaNota, tituloNota);
+
+                    System.out.println("Nota alterada!");
+                    break;
+
+                case 5:
+
+                    System.out.print("\nTítulo do filme: ");
+
+                    String tituloRemover =
+                            scanner.nextLine();
+
+                    if (sistema.removerFilme(tituloRemover)) {
+
+                        System.out.println("Filme removido!");
+
+                    } else {
+
+                        System.out.println("Filme não encontrado.");
+                    }
+
+                    break;
+
+                case 0:
+
+                    System.out.println("Encerrando sistema...");
+                    break;
+
+                default:
+
+                    System.out.println("Opção inválida.");
+            }
         }
 
         scanner.close();
