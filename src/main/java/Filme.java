@@ -1,11 +1,13 @@
-public class Filme {
+import java.io.Serializable;
 
+public class Filme implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String titulo;
     private String genero;
     private int ano;
     private double nota;
 
-    // Construtor
     public Filme(String titulo, String genero, int ano, double nota) {
         this.titulo = titulo;
         this.genero = genero;
@@ -13,40 +15,18 @@ public class Filme {
         this.nota = nota;
     }
 
-    // Gets e Sets
-    public String getTitulo() {
-        return titulo;
-    }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    public String getGenero() { return genero; }
+    public void setGenero(String genero) { this.genero = genero; }
 
-    public String getGenero() {
-        return genero;
-    }
+    public int getAno() { return ano; }
+    public void setAno(int ano) { this.ano = ano; }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+    public double getNota() { return nota; }
+    public void setNota(double nota) { this.nota = nota; }
 
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public double getNota() {
-        return nota;
-    }
-
-    public void setNota(double nota) {
-        this.nota = nota;
-    }
-
-    // toString
     @Override
     public String toString() {
         return "Filme{" +

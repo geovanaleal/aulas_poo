@@ -1,36 +1,37 @@
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SistemaFilmeTest {
 
-    @Test
-    public void testaCadastroFilme() {
+    private SistemaFilme sistema;
 
-        SistemaFilme sistema = new SistemaFilme();
-
-        Filme filme =
-                new Filme("Titanic", "Drama", 1997, 9.0);
-
-        sistema.cadastrarFilme(filme);
-
-        assertEquals(
-                filme,
-                sistema.pesquisarFilme("Titanic")
-        );
+    @BeforeEach
+    public void setUp() {
+        sistema = new SistemaFilme();
     }
 
     @Test
-    public void testaRemocaoFilme() {
-
-        SistemaFilme sistema = new SistemaFilme();
-
-        Filme filme =
-                new Filme("Avatar", "Ficção", 2009, 8.5);
-
+    public void testCadastrarEPesquisarFilme() {
+        Filme filme = new Filme("Matrix", "Ficção", 1999, 9.5);
         sistema.cadastrarFilme(filme);
 
-        assertTrue(
-                sistema.removerFilme("Avatar")
-        );
+        Filme encontrado = sistema.pesquisarFilme("Matrix");
+        assertNotNull(encontrado);
+        assertEquals(1999, encontrado.getAno());
+        assertEquals("Ficção", encontrado.getGenero());
+    }
+
+    @Test
+    public void testRemoverFilme() {
+        Filme filme = new Filme("O Senhor dos Anéis", "Fantasia", 2001, 10.0);
+        sistema.cadastrarFilme(filme);
+
+        boolean removido = sistema.removerFilme("O Senhor dos Anéis");
+        assertTrue(removido);
+
+        Filme encontrado = sistema.pesquisarFilme("O Senhor dos Anéis");
+        assertNull(encontrado);
     }
 }
